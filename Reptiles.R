@@ -14,7 +14,6 @@ reptiles <- as.data.frame(read_excel(path = datos, sheet = 1))
 GET(url_imagen, write_disk(imagen <- tempfile(fileext = ".png")))
 img <- rasterGrob(readPNG(imagen), interpolate=TRUE)
 
-
 x<-reptiles$Author
 x<-gsub(pattern = "\\(", replacement = "", x = x)
 x<-gsub(pattern = "\\)", replacement = "", x = x)
@@ -39,7 +38,6 @@ g<-ggplot(datos,aes(Anyo, Agregado)) + geom_point(size=3,colour="forestgreen") +
         axis.title=element_text(size=18,face="bold",colour="forestgreen"),
         plot.caption = element_text(color = "black",face = "italic", size = 12, hjust=1)) +
   transition_reveal(Anyo)
-
   
 animate(g, width = 900, height = 500)
 anim_save("Cat\u00E1logo de Reptiles.gif")
