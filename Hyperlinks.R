@@ -1,18 +1,20 @@
 # Cargamos las librerias necesarias
 if(!require(rvest)){install.packages("rvest")}; library(rvest)
-if(!require(rgdal)){install.packages("rgdal")};library(rgdal)
+if(!require(rgdal)){install.packages("rgdal")}; library(rgdal)
 
 # Definimos las variables
+# Nombre que reciben los paises de la UE en sus enlaces al articulo en Wikipedia:
 paises<-c("Germany", "Austria", "Belgium", "Bulgaria", "Czech_Republic", "Cyprus", "Croatia", "Denmark", "Slovakia",
           "Slovenia", "Spain", "Estonia", "Finland", "France", "Greece", "Hungary", "Ireland", "Italy",
           "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Sweden")
+# Codigos ISO3 de los paises de la UE:
 ISO3<-c("DEU", "AUT", "BEL", "BGR", "CZE", "CYP", "HRV", "DNK", "SVK", 
         "SVN", "ESP", "EST", "FIN", "FRA", "GRC", "HUN", "IRL", "ITA",
         "LVA", "LTU", "LUX", "MLT", "NLD", "POL", "PRT", "ROU", "SWE")
-articulos<-c()
 
 # Realizamos Web Scraping
 url_base<-"https://en.wikipedia.org"
+articulos<-c()
 for(p in paises){
   page <- read_html(paste0(url_base,"/wiki/",p))
   links <- page %>% html_nodes("a") %>% html_attr("href") 
@@ -33,7 +35,8 @@ mapamundi <- readOGR(
 # Filtramos los paises de la UE
 europaUE <- mapamundi[mapamundi@data$ISO3%in%ISO3, ]
 
-# Guardamos el mapa
+# Guardamos el mapa. 
+# Nota: Para escribir acentos y otros caracteres especiales os aconsejo el uso de secuencias de escape unicode
 png("UE.png", width = 20, height = 20, units = 'in', res = 300)
 plot(europaUE, col="#FFCC00") 
 title(main ="\u00BFQu\u00E9 pa\u00EDs de la UE es m\u00E1s importante en Wikipedia\u003F", cex.main=4, col.main= "#003399", 
