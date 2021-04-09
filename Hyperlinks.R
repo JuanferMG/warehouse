@@ -34,7 +34,7 @@ mapamundi <- readOGR(
 europaUE <- mapamundi[mapamundi@data$ISO3%in%ISO3, ]
 
 # Guardamos el mapa
-png("UE.png", width = 20, height = 20, units = 'in', res = 100)
+png("UE.png", width = 20, height = 20, units = 'in', res = 300)
 plot(europaUE, col="#FFCC00") 
 title(main ="\u00BFQu\u00E9 pa\u00EDs de la UE es m\u00E1s importante en Wikipedia\u003F", cex.main=4, col.main= "#003399", 
       sub="\u00A9 2021 Juanfer Morala. Nota: N\u00FAmero de hiperv\u00EDnculos internos en la entrada principal de cada pa\u00EDs. Fuente: en.wikipedia.org", cex.sub=2, col.sub="#003399")
